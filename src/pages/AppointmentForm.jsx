@@ -5,6 +5,8 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { toast } from "../components/ui/use-toast";
 import { apiRequest } from "../components/CustomComponents/apiRequest";
+import { Toaster } from "../components/ui/toaster";
+import { motion } from "framer-motion";
 import {
   Select,
   SelectContent,
@@ -43,6 +45,7 @@ const AppointmentForm = () => {
     { id: "690d788eaf1192eb5b523d6e", genderName: "Other" },
   ];
   const [referenceList, setReferenceList] = useState([]);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [link, setLink] = useState(window.location.href);
   const [sixdigit, setSixDigit] = useState("");
   useEffect(() => {
@@ -226,6 +229,7 @@ const AppointmentForm = () => {
         response?.success === false &&
         response?.message === "EXISTING_NUMBER"
       ) {
+        setLoading(false);
         toast({
           title: "Alert",
           description: "This contact number already exists.",
@@ -247,6 +251,8 @@ const AppointmentForm = () => {
         title: "Success",
         description: "Appointment booked successfully.",
       });
+
+      setIsSuccess(true);
 
       setFormData({
         leadName: "",
@@ -518,7 +524,61 @@ const AppointmentForm = () => {
             </form>
           </CardContent>
         </Card>
+        {isSuccess && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 flex items-center justify-center bg-black/40 z-50"
+          >
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              className="bg-white rounded-3xl p-8 text-center shadow-2xl w-[90%] max-w-sm"
+            >
+              {/* ✅ Tick Animation */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 200 }}
+                className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100"
+              >
+                <svg
+                  className="h-8 w-8 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  viewBox="0 0 24 24"
+                >
+                  <motion.path
+                    d="M5 13l4 4L19 7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </svg>
+              </motion.div>
+
+              <h2 className="text-xl font-semibold text-green-700">
+                Appointment Booked!
+              </h2>
+              <p className="text-sm text-slate-500 mt-2 mb-6">
+                Your request was submitted successfully
+              </p>
+
+              {/* ✅ OK BUTTON */}
+              <button
+                onClick={() => setIsSuccess(false)}
+                className="w-full rounded-xl bg-green-600 text-white py-2 font-medium hover:bg-green-700 transition"
+              >
+                OK
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
       </div>
+      <Toaster position="top-center" richColors closeButton />
     </div>
   );
 };

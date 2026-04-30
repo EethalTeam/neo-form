@@ -16,6 +16,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
     "lucide-react": "^0.577.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -37,5 +38,18 @@
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1",
     "vite": "^7.3.1"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EethalTeam/neo-form.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EethalTeam/neo-form/issues"
+  },
+  "homepage": "https://github.com/EethalTeam/neo-form#readme"
 }
